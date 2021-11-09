@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post1.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @post1.body %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @post1.user_id %>
+</p>
+<% if can? :update, @post1 %>
+<%= link_to 'Edit', edit_post1_path(@post1) %> | <% end %>
+<%= link_to 'Back', post1s_path %>
