@@ -4,12 +4,31 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.admin?
+    # if user.admin?
+    #   can :manage, :all
+    # else
+    #   can :manage, Post1, user_id: user.id
+    #   can :read, :all
+    # end
+
+    # if admin.has_role? :moderator
+    #   can :read, :Post1
+    # else
+    #   can :read, :Post1
+    # end
+    
+    if admin_user.has_role? :admin
       can :manage, :all
     else
-      can :manage, Post1, user_id: user.id
       can :read, :all
+      can :manage, Post1 if admin_user.has_role?(:moderator, Post1)
+      # can :write, Forum, :id => Forum.with_role(:moderator, user).pluck(:id)
+      
     end
+    
+# can :manage, Forum if admin.has_role?(:moderator, Post1)
+      # can :write, Forum, :id => Forum.with_role(:moderator, user).pluck(:id)
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
